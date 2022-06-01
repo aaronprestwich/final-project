@@ -5,16 +5,16 @@ import MonsterList from "./MonsterList";
 
 const MonsterContainer = () => {
 
-    
+
     const monsterIDRef = useRef();
     const url = 'https://www.dnd5eapi.co/api';
     const [error, setError] = useState(null);
-    let [monsterInfo, setInfo] =useState('');
-    
+    let [monsterInfo, setInfo] = useState('');
+
 
     const getNewID = (event) => {
         const id = `monsters/${monsterIDRef.current.value}`;
-        if(id === '') return
+        if (id === '') return
         console.log(id);
         monsterIDRef.current.value = null;
         getNewInfo(id.replace(/\s+/g, '-').toLowerCase());
@@ -22,28 +22,29 @@ const MonsterContainer = () => {
 
     // GET monster object
     // getAPI(id);
-    const getNewInfo = (id) =>{
-        
-            fetch(`${url}/${id}`)
+    const getNewInfo = (id) => {
+
+        fetch(`${url}/${id}`)
             .then(response => {
                 console.log(response);
-                if(!response.ok){
-                    throw Error(`${id} is not found in the DND 5e API https://www.dnd5eapi.co/api/monsters/${id}. Try "aboleth".`);
+                if (!response.ok) {
+                    throw Error(`${id} was not found in the DND 5e API https://www.dnd5eapi.co/api/${id}.`);
                 }
-                return response.json()})
-            .then(data => {setInfo(data); console.log(data); setError(null)}) 
-            .catch(err =>{
+                return response.json()
+            })
+            .then(data => { setInfo(data); console.log(data); setError(null) })
+            .catch(err => {
                 setError(err.message);
             })
     }
 
-    return(
+    return (
         <>
-        <input ref = {monsterIDRef} type="text"/>
-        <button onClick={getNewID}>Get New Monster</button>
-        {error && <div> { error }</div>}
-        <MonsterInfo monsterInfo = {monsterInfo}/>
-        <MonsterList monsterInfo = {monsterInfo}/>
+            <input ref={monsterIDRef} type="text" />
+            <button onClick={getNewID}>Get New Monster</button>
+            {error && <div> {error}</div>}
+            <MonsterInfo monsterInfo={monsterInfo} />
+            <MonsterList monsterInfo={monsterInfo} />
         </>
     )
 }
