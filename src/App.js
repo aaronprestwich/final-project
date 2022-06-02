@@ -7,6 +7,8 @@ import Container from "react-bootstrap/Container";
 import Nav from'react-bootstrap/Nav';
 import Navbar from "react-bootstrap/Navbar";
 
+import { FaDiceD20 } from 'react-icons/fa'
+
 
 import {
   Switch,
@@ -27,7 +29,7 @@ export default function App() {
         <Navbar expand="lg" variant="dark" bg="dark">
           <Container>
             <Nav className="me-auto">
-              <Navbar.Brand as= {Link}>5e Search</Navbar.Brand>
+              <Navbar.Brand as= {Link}><FaDiceD20 size={50}/> 5e Search</Navbar.Brand>
               <Nav.Link as = {Link} to='/'>Home</Nav.Link>
               <Nav.Link as = {Link} to='/monsters'>Monsters</Nav.Link>
               <Nav.Link as = {Link} to='/spells'>Spells</Nav.Link>
@@ -43,7 +45,7 @@ export default function App() {
                 <h2>Spells</h2>
                 <SpellContainer/>
               </Route>
-              <Route path='/'>
+              <Route path='/' className = "tray">
                 <h2>Home</h2>
                 <Tray/>
               </Route>

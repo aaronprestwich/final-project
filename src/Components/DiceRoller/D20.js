@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form"
-import { FaDiceD20 } from 'react-icons/fa'
+import { Container, Card, ButtonGroup, Button, Form } from "react-bootstrap";
 import {GiDiceTwentyFacesTwenty,
         GiD12,
         GiD10,
@@ -13,8 +11,8 @@ import {GiDiceTwentyFacesTwenty,
 
 
 const D20 = () => {
-    const [modifier, setModifier] = useState('');
-    const [diceAmount, setDice] = useState('');
+    const [modifier, setModifier] = useState(0);
+    const [diceAmount, setDice] = useState(1);
     const [roll, setRoll] = useState('');
     const [radio, setRadio] = useState(d20)
     let die = radio;
@@ -46,7 +44,7 @@ const D20 = () => {
                 modifiedRoll = 'Nat 20!';
             }
             else{
-                modifiedRoll = baseRoll + modifier;
+                modifiedRoll = `Rolled 1 D${dice} Modifier: ${modifier} Base Roll: ${baseRoll} Total:${baseRoll + modifier}`;
             }            
         }
         else{
@@ -57,7 +55,7 @@ const D20 = () => {
                 console.log(`Amount of dice: ${diceAmount} Total before modifier: ${baseRoll} D${dice} Rolled ${i} dice`);
                 i++
             } while (i < diceAmount);
-            modifiedRoll = baseRoll + modifier;
+            modifiedRoll = `Rolled ${diceAmount} D${dice} Modifier: ${modifier} Base Roll: ${baseRoll} Total:${baseRoll + modifier}`;
         }
         console.log(`${baseRoll} + ${modifier} = ${modifiedRoll}`)
         
@@ -66,7 +64,18 @@ const D20 = () => {
 
     return (
         <div>
-            
+            <ButtonGroup aria-label="Basic example">
+                {[...Array(10)].map((diceButton, i) => {
+                    const numDice = i + 1;
+
+                    return (
+                        <Button variant="dark"
+                        value = {numDice}
+                        onClick = {getDice}>
+                            {numDice}</Button>
+                    );
+                })}
+            </ButtonGroup>
             <input type="number" placeholder="Modifier"
                 min="-5" max="10" 
                 onChange = {getModifier}></input>
@@ -77,69 +86,71 @@ const D20 = () => {
                 <div key={`inline-radio`} className="mb-3">
                 <Form.Check 
                     inline
-                    type={'radio'}
                     name = "group1"
+                    type={'radio'}
                     id = 'D20'
                     isValid = {radio === d20}
                     value = {d20}
-                    label={<GiDiceTwentyFacesTwenty size = {50}/>}
+                    label={<GiDiceTwentyFacesTwenty className = "group1" color = {radio == d20 ? "grey" : "#292b2c"} size = {50}/>}
                     onChange = {(e) => { setRadio(e.target.value)}}
                 />
                 <Form.Check 
                     inline 
-                    type={'radio'}
                     name = "group1"
+                    type={'radio'}
                     id = 'D12'
                     isValid = {radio === d12}
                     value = {d12}
-                    label={<GiD12 size = {50}/>}
+                    label={<GiD12 className = "group1" color = {radio == d12 ? "grey" : "#292b2c"} size = {50}/>}
                     onChange = {(e) => { setRadio(e.target.value)}}
                 />
                 <Form.Check 
                     inline
-                    type={'radio'}
                     name = "group1"
+                    type={'radio'}
                     id = 'D10'
                     isValid = {radio === d10}
                     value = {d10}
-                    label={<GiD10 size = {50}/>}
+                    label={<GiD10 className = "group1" color = {radio == d10 ? "grey" : "#292b2c"} size = {50}/>}
                     onChange = {(e) => { setRadio(e.target.value)}}
                 />
                 <Form.Check 
                     inline
-                    type={'radio'}
                     name = "group1"
+                    type={'radio'}
                     id = 'D8'
                     isValid = {radio === d8}
                     value = {d8}
-                    label={<GiDiceEightFacesEight size = {50}/>}
+                    label={<GiDiceEightFacesEight className = "group1" color = {radio == d8 ? "grey" : "#292b2c"} size = {50}/>}
                     onChange = {(e) => { setRadio(e.target.value)}}
                 />
                 <Form.Check 
                     inline
-                    type={'radio'}
                     name = "group1"
+                    type={'radio'}
                     id = 'D6'
                     isValid = {radio === d6}
                     value = {d6}
-                    label={<GiPerspectiveDiceSix size = {50}/>}
+                    label={<GiPerspectiveDiceSix className = "group1" color = {radio == d6 ? "grey" : "#292b2c"} size = {50}/>}
                     onChange = {(e) => { setRadio(e.target.value)}}
                 />
                 <Form.Check 
                     inline
-                    type={'radio'}
                     name = "group1"
+                    type={'radio'}
                     id = 'D4'
                     isValid = {radio === d4}
                     value = {d4}
-                    label={<GiD4 size = {50}/>}
+                    label={<GiD4 className = "group1" color = {radio == d4 ? "grey" : "#292b2c"} size = {50}/>}
                     onChange = {(e) => { setRadio(e.target.value)}}
                 />
                 </div>
             </Form>
             <Button onClick={(e) => rollDice(die, e)}>Roll</Button>
-            
-            <div>{roll}</div>
+            <Card className="bg-dark text-white text-center p-5 my-5">
+  
+                {roll}
+            </Card>
         </div>
     )
 }
