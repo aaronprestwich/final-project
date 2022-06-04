@@ -11,6 +11,8 @@ const MonsterContainer = () => {
     const url = 'https://www.dnd5eapi.co/api';
     const [error, setError] = useState(null);
     let [monsterInfo, setInfo] = useState('');
+    const [speed, setSpeed] = useState('');
+    const [actions, setActions] = useState();
 
 
     const getNewID = (event) => {
@@ -36,6 +38,10 @@ const MonsterContainer = () => {
             .catch(err => {
                 setError(err.message);
             })
+        setSpeed(monsterInfo.speed);
+        setActions(monsterInfo.actions);
+        console.log(...monsterInfo.actions);
+        console.log("Speed " + monsterInfo.speed);
     }
 
     return (
@@ -44,14 +50,14 @@ const MonsterContainer = () => {
                 <Container className="px-5 mt-2">
                 <h2>Monster Search</h2>
                     <Form className="mb-2">
-                        <Form.Control type="text" ref={monsterIDRef} />
+                        <Form.Control type="text" ref={monsterIDRef} placeholder="Goblin, Vampire, or Ghost"/>
                     </Form>
-                    <Button variant="warning" onClick={getNewID}>Get New Monster</Button>
+                    <Button variant="warning" onClick={getNewID} >Get New Monster</Button>
                 </Container>
                 <Container className="p-5 mt-5 text-center">
                     {error && <div> {error}</div>}
-                    <MonsterInfo monsterInfo={monsterInfo}/>
-                    <MonsterList monsterInfo={monsterInfo} />
+                    <MonsterInfo monsterInfo={monsterInfo} monsterSpeed={speed} monsterActions = {actions}/>
+                    <MonsterList monsterInfo={monsterInfo} monsterSpeed={speed}/>
                 </Container>
                 
                 

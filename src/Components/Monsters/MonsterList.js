@@ -1,5 +1,6 @@
 import React, {useState, useRef} from "react";
 import MonsterInfo from "./MonsterInfo";
+import {Container, Card, Button, Form} from "react-bootstrap";
 
 export default function MonsterList({monsterInfo}) {
     
@@ -86,8 +87,10 @@ export default function MonsterList({monsterInfo}) {
     return(
         <div>
             <p>To add a monster you will need to get a <a href="https://crudcrud.com/">CRUD CRUD ENDPOINT</a> first.</p>
-            https://crudcrud.com/api/<input ref = {crudcrudRef} type="text"/>
-            <button className="btn-primary" onClick={getENDPOINT}>Add Monster</button>            
+            <Form className="mb-2">
+                <Form.Control type="text" ref={crudcrudRef} placeholder="https://crudcrud.com/api/" />
+            </Form>
+            <Button variant="warning" onClick={getENDPOINT}>Add Monster</Button>      
             {error && <div> { error }</div>}
             {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster) => (
             <><MonsterInfo monsterInfo={monster.monsterInfo}/>
@@ -98,7 +101,8 @@ export default function MonsterList({monsterInfo}) {
                 min="0" max="676" 
                 // value={monster.monsterInfo.hit_points}
                 onChange = {editMonster}></input>
-            <button id = {monster._id} onClick = {deleteMonster}>Delete Monster</button></>
+            <Button variant="danger" id= {monster._id} onClick={deleteMonster}>Delete Monster</Button>
+            </>
             
             ))}
         </div>
