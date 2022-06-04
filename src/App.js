@@ -37,7 +37,6 @@ export default function App() {
           </Navbar>
             <Switch>
               <Route path='/monsters'>
-                <h2>Monsters</h2>
                 <Monsters/>
               </Route>
               <Route path='/spells'>

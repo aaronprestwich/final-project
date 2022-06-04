@@ -16,4 +16,9 @@ input[type="radio"] {
   color: #292b2c;
 }
 
+.stats{
+  display: flex;
+  justify-content: space-evenly;
+}
+
 

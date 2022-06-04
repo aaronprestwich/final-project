@@ -8,8 +8,6 @@ import {GiDiceTwentyFacesTwenty,
         GiD4
 } from 'react-icons/gi'
 
-
-
 const DiceRoller = () => {
     let dice =[ 20, 12, 10, 8, 6, 4]
     const [modifier, setModifier] = useState(0);
@@ -102,7 +100,6 @@ const DiceRoller = () => {
                 </div>
             </Form>
             <Card className="bg-dark text-white text-center p-5 my-3">
-                
                 Amount of Dice: {diceAmount}<br/>
                 Modifier: {modifier}<br/>
                 Type of Dice: D{radio}<br/>

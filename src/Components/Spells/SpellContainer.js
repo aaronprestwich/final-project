@@ -4,7 +4,7 @@ import SpellInfo from "./SpellInfo";
 const SpellContainer = () => {
 
     const url = 'https://www.dnd5eapi.co/api';
-    const spellIDRef = useRef();
+    const spellIDRef = useRef('FireBall');
     const [error, setError] = useState(null);
     let [spellInfo, setInfo] =useState('');
 
