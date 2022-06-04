@@ -87,7 +87,7 @@ export default function MonsterList({monsterInfo}) {
         <div>
             <p>To add a monster you will need to get a <a href="https://crudcrud.com/">CRUD CRUD ENDPOINT</a> first.</p>
             https://crudcrud.com/api/<input ref = {crudcrudRef} type="text"/>
-            <button onClick={getENDPOINT}>Add Monster</button>            
+            <button className="btn-primary" onClick={getENDPOINT}>Add Monster</button>            
             {error && <div> { error }</div>}
             {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster) => (
             <><MonsterInfo monsterInfo={monster.monsterInfo}/>
