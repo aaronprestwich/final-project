@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import {Container, Card, ListGroup, ListGroupItem, Row, Col} from "react-bootstrap";
-import MonsterSpeed from './MonsterSpeed';
+import {Container, Card, ListGroup, ListGroupItem, Row, Col, DropdownButton, Dropdown} from "react-bootstrap";
+import MonsterActions from './MonsterActions';
+import MonsterAbilities from "./MonsterAbilities";
+import MonsterVulnerabilities from "./MonsterVulnerabilities";
 
 const MonsterInfo = ({monsterInfo, speed, actions}) => {
-    
-    console.log(monsterInfo);
-    
-
-    
+        
     return(
         <Container className="tray my-3">
         {monsterInfo && <Card className="bg-dark text-light p-2" border="warning">
@@ -21,7 +19,6 @@ const MonsterInfo = ({monsterInfo, speed, actions}) => {
                 <Row className="pb-2">
                     <Col>AC: {monsterInfo.armor_class}</Col>
                     <Col>HP: {monsterInfo.hit_points}</Col>
-                    <MonsterSpeed speed ={speed}/>
                     <Col>Speed: {monsterInfo.speed.walk}</Col>                    
                 </Row>
                 <Row className="text-center">
@@ -42,18 +39,17 @@ const MonsterInfo = ({monsterInfo, speed, actions}) => {
                 </Row>
                 <ListGroup className="list-group-flush">
                     <ListGroupItem className="bg-warning px-5">
-                        {/* <Row>Senses: {monsterInfo.senses.darkvision} Passive Perception {monsterInfo.senses.passive_perception}</Row> */}
+                        <Row>Passive Perception: {monsterInfo.senses.passive_perception}</Row>
+                        {monsterInfo.senses.darkvision && <Row>Dark Vision: {monsterInfo.senses.darkvision}</Row>}
+                        <MonsterVulnerabilities monsterInfo= {monsterInfo}/>                                       
+                        {/* {monsterInfo.senses.map(x => {`Dark Vision: ${x.darkvision} Passive Perception: ${x.passive_perception}`})} */}
                         <Row>Languages: {monsterInfo.languages}</Row>
                     </ListGroupItem>
                     <ListGroupItem className="bg-warning px-5">
-                    {/* {[...actions].map((actionList, i) => {
-                        let actionNum = i++;
-
-                            return (
-                                <Row>{actions.name[actionNum]}</Row>
-                            );
-                        })} */}
-                    <Row>Actions:</Row>
+                        <MonsterAbilities monsterInfo={monsterInfo}/>                                       
+                    </ListGroupItem>
+                    <ListGroupItem className="bg-warning px-5">
+                        <MonsterActions monsterInfo={monsterInfo}/>                                       
                     </ListGroupItem>
                 </ListGroup>
             </Card.Body>

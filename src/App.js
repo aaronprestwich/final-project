@@ -40,7 +40,6 @@ export default function App() {
                 <Monsters/>
               </Route>
               <Route path='/spells'>
-                <h2>Spells</h2>
                 <SpellContainer/>
               </Route>
               <Route path='/' className = "tray">
