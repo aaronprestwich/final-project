@@ -94,16 +94,16 @@ export default function MonsterList({ monsterInfo }) {
             </Form>
             <Button variant="warning" onClick={getENDPOINT}>Add Monster</Button>
             {error && <div> {error}</div>}
-            {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster) => (
-                <><MonsterInfo monsterInfo={monster.monsterInfo} />
+            {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster, i) => (
+                <><MonsterInfo key={i} monsterInfo={monster.monsterInfo} />
                     {/* edit monster hp button */}
-                    <label htmlFor="hp">Hit Points:</label>
+                    {/* <label htmlFor="hp">Hit Points:</label>
 
                     <input type="number" id={monster._id} name="hp"
                         min="0" max="676"
                         // value={monster.monsterInfo.hit_points}
-                        onChange={editMonster}></input>
-                    <Button variant="danger" id={monster._id} onClick={deleteMonster}>Delete Monster</Button>
+                        onChange={editMonster}></input> */}
+                    <Button variant="danger" id={monster._id} onClick={deleteMonster}>{`Delete ${monster.monsterInfo.name} ${i+1}`}</Button>
                 </>
 
             ))}

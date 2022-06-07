@@ -15,7 +15,8 @@ const MonsterAbilities = ({monsterInfo}) => {
             <Row>
                 <DropdownButton variant="warning" id="dropdown-basic-button" title="Special Abilities">
                     <Dropdown.Item key={"abilities-no"} id={""} onClick={getDesc}>Toggle Abilities</Dropdown.Item>
-                    {monsterInfo.special_abilities.map((x, i) => <Dropdown.Item key={"abilities-"+i} id={x.desc} onClick={getDesc}>{x.name}</Dropdown.Item>)}
+                    {monsterInfo.special_abilities.map((x, i) => 
+                    <Dropdown.Item key={"abilities-"+i} id={x.desc} onClick={getDesc}>{x.name}</Dropdown.Item>)}
                 </DropdownButton>
             </Row>
             {desc && <Row>

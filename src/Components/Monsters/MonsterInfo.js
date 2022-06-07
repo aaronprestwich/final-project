@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import {Container, Card, ListGroup, ListGroupItem, Row, Col, DropdownButton, Dropdown} from "react-bootstrap";
+import {Container, Card, ListGroup, ListGroupItem, Row, Col, Accordion, Form} from "react-bootstrap";
 import MonsterActions from './MonsterActions';
 import MonsterAbilities from "./MonsterAbilities";
 import MonsterVulnerabilities from "./MonsterVulnerabilities";
 
-const MonsterInfo = ({monsterInfo, speed, actions}) => {
+const MonsterInfo = ({monsterInfo}) => {
+    const [HP, setHP] = useState(monsterInfo.hit_points);
+
+    const getHP = (event) =>{
+        var x = parseInt(event.currentTarget.value, 10);
         
+        setHP(x);
+    }
     return(
         <Container className="tray my-3">
         {monsterInfo && <Card className="bg-dark text-light p-2" border="warning">
@@ -18,8 +24,17 @@ const MonsterInfo = ({monsterInfo, speed, actions}) => {
             <Card.Body>
                 <Row className="pb-2">
                     <Col>AC: {monsterInfo.armor_class}</Col>
-                    <Col>HP: {monsterInfo.hit_points}</Col>
-                    <Col>Speed: {monsterInfo.speed.walk}</Col>                    
+                    <Col>HP: {HP}
+                        <Form>
+                            <Form.Control type="number" min={0} max={700} placeholder={`Enter in HP: ${monsterInfo.hit_points}`} onChange={getHP} />
+                        </Form>
+                        
+                    </Col>
+                    {monsterInfo.speed.walk == null ? null : <Col>Walk: {monsterInfo.speed.walk}</Col>}
+                    {monsterInfo.speed.run == null ? null : <Col>Run: {monsterInfo.speed.run}</Col>}
+                    {monsterInfo.speed.fly == null ? null : <Col>Fly: {monsterInfo.speed.fly}</Col>}
+                    {monsterInfo.speed.swim == null ? null : <Col>Swim: {monsterInfo.speed.swim}</Col>} 
+                    {monsterInfo.speed.climb == null ? null : <Col>Climb: {monsterInfo.speed.climb}</Col>}                
                 </Row>
                 <Row className="text-center">
                     <Col>Str</Col>
@@ -41,9 +56,19 @@ const MonsterInfo = ({monsterInfo, speed, actions}) => {
                     <ListGroupItem className="bg-warning px-5">
                         <Row>Passive Perception: {monsterInfo.senses.passive_perception}</Row>
                         {monsterInfo.senses.darkvision && <Row>Dark Vision: {monsterInfo.senses.darkvision}</Row>}
-                        <MonsterVulnerabilities monsterInfo= {monsterInfo}/>                                       
-                        {/* {monsterInfo.senses.map(x => {`Dark Vision: ${x.darkvision} Passive Perception: ${x.passive_perception}`})} */}
+                        <MonsterVulnerabilities monsterInfo= {monsterInfo}/>  
                         <Row>Languages: {monsterInfo.languages}</Row>
+                    </ListGroupItem>
+                    <ListGroupItem className="bg-warning px-5">
+                        <Accordion className="accordion">
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>Proficiencies</Accordion.Header>
+                                <Accordion.Body>
+                                    <Row>{monsterInfo.proficiencies.map(x => <Col>{x.proficiency.name}</Col>)}</Row> 
+                                    <Row>{monsterInfo.proficiencies.map(x => <Col>{x.value}</Col>)}</Row> 
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
                     </ListGroupItem>
                     <ListGroupItem className="bg-warning px-5">
                         <MonsterAbilities monsterInfo={monsterInfo}/>                                       
@@ -57,9 +82,6 @@ const MonsterInfo = ({monsterInfo, speed, actions}) => {
                Challenge {monsterInfo.challenge_rating} ({monsterInfo.xp} experience)
             </Card.Footer>
         </Card>}
-        <div>
-            
-        </div>
         </Container>
     )
 }

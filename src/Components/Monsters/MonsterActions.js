@@ -15,7 +15,8 @@ const MonsterActions = ({monsterInfo}) => {
             <Row>
                 <DropdownButton variant="warning" id="dropdown-basic-button" title="Actions">
                     <Dropdown.Item key={"actions-no"} id={""} onClick={getDesc}>Toggle Actions</Dropdown.Item>
-                    {monsterInfo.actions.map((x, i) => <Dropdown.Item key={"actions-"+i} id={x.desc} onClick={getDesc}>{x.name}</Dropdown.Item>)}
+                    {monsterInfo.actions.map((x, i) =>
+                     <Dropdown.Item key={"actions-"+i} id={x.desc} onClick={getDesc}>{x.name}</Dropdown.Item>)}
                 </DropdownButton>
             </Row>
             {desc && <Row>

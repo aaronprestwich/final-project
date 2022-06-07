@@ -11,14 +11,10 @@ const MonsterContainer = () => {
     const url = 'https://www.dnd5eapi.co/api';
     const [error, setError] = useState(null);
     let [monsterInfo, setInfo] = useState('');
-    const [speed, setSpeed] = useState('');
-    const [actions, setActions] = useState();
-
 
     const getNewID = (event) => {
         const id = `monsters/${monsterIDRef.current.value}`;
         if (id === '') return
-        console.log(id);
         monsterIDRef.current.value = null;
         getNewInfo(id.replace(/\s+/g, '-').toLowerCase());
     }
@@ -38,10 +34,6 @@ const MonsterContainer = () => {
             .catch(err => {
                 setError(err.message);
             })
-        setSpeed(monsterInfo.speed);
-        setActions(monsterInfo.actions);
-        console.log(...monsterInfo.actions);
-        console.log("Speed " + monsterInfo.speed);
     }
 
     return (
@@ -56,8 +48,8 @@ const MonsterContainer = () => {
                 </Container>
                 <Container className="p-5 mt-5 text-center">
                     {error && <div> {error}</div>}
-                    <MonsterInfo monsterInfo={monsterInfo} monsterSpeed={speed} monsterActions = {actions}/>
-                    <MonsterList monsterInfo={monsterInfo} monsterSpeed={speed}/>
+                    <MonsterInfo monsterInfo={monsterInfo}/>
+                    <MonsterList monsterInfo={monsterInfo}/>
                 </Container>
                 
                 
