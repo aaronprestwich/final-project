@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import MonsterInfo from "./MonsterInfo";
-import { Container, Card, Button, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 export default function MonsterList({ monsterInfo }) {
 
@@ -48,9 +48,10 @@ export default function MonsterList({ monsterInfo }) {
             })
     }
     // PUT 
-    // Update KO monster
-    const editMonster = (event) => {
-        var x = event.currentTarget.id
+    // Update Dead monster
+    const updateMonster = (isDead, id) => {
+        console.log(`Is the Monster Dead? ${isDead}`)
+        var x = id;
         console.log('ID is here ' + x)
         const crudcrud = `${url}${endpointAPI}/monsters/${x}`;
 
@@ -63,7 +64,7 @@ export default function MonsterList({ monsterInfo }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('SUCCESS', data);
+                console.log('SUCCESS', data, isDead);
 
             })
             .then(() => getMonster(endpointAPI));
@@ -95,15 +96,12 @@ export default function MonsterList({ monsterInfo }) {
             <Button variant="warning" onClick={getENDPOINT}>Add Monster</Button>
             {error && <div> {error}</div>}
             {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster, i) => (
-                <><MonsterInfo key={i} monsterInfo={monster.monsterInfo} />
-                    {/* edit monster hp button */}
-                    {/* <label htmlFor="hp">Hit Points:</label>
-
-                    <input type="number" id={monster._id} name="hp"
-                        min="0" max="676"
-                        // value={monster.monsterInfo.hit_points}
-                        onChange={editMonster}></input> */}
-                    <Button variant="danger" id={monster._id} onClick={deleteMonster}>{`Delete ${monster.monsterInfo.name} ${i+1}`}</Button>
+                <><MonsterInfo id={monster._id} monsterInfo={monster.monsterInfo} updateMonster = {updateMonster}/>
+                    <Button variant="danger"
+                     id={monster._id}
+                      onClick={deleteMonster}>
+                          {`Delete ${monster.monsterInfo.name} ${i+1}`}
+                    </Button>
                 </>
 
             ))}

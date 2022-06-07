@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import {Container, Card, ListGroup, ListGroupItem, Row, Col, Accordion, Form} from "react-bootstrap";
+import {Container, Card, ListGroup, ListGroupItem, Row, Col, Accordion} from "react-bootstrap";
 import MonsterActions from './MonsterActions';
 import MonsterAbilities from "./MonsterAbilities";
 import MonsterVulnerabilities from "./MonsterVulnerabilities";
+import MonsterHP from "./MonsterHP";
 
-const MonsterInfo = ({monsterInfo}) => {
-    const [HP, setHP] = useState(monsterInfo.hit_points);
-
-    const getHP = (event) =>{
-        var x = parseInt(event.currentTarget.value, 10);
-        
-        setHP(x);
-    }
+const MonsterInfo = ({monsterInfo, id, updateMonster}) => {
     return(
         <Container className="tray my-3">
         {monsterInfo && <Card className="bg-dark text-light p-2" border="warning">
@@ -24,12 +18,7 @@ const MonsterInfo = ({monsterInfo}) => {
             <Card.Body>
                 <Row className="pb-2">
                     <Col>AC: {monsterInfo.armor_class}</Col>
-                    <Col>HP: {HP}
-                        <Form>
-                            <Form.Control type="number" min={0} max={700} placeholder={`Enter in HP: ${monsterInfo.hit_points}`} onChange={getHP} />
-                        </Form>
-                        
-                    </Col>
+                    <MonsterHP monsterInfo={monsterInfo} id = {id} updateMonster={updateMonster} />
                     {monsterInfo.speed.walk == null ? null : <Col>Walk: {monsterInfo.speed.walk}</Col>}
                     {monsterInfo.speed.run == null ? null : <Col>Run: {monsterInfo.speed.run}</Col>}
                     {monsterInfo.speed.fly == null ? null : <Col>Fly: {monsterInfo.speed.fly}</Col>}

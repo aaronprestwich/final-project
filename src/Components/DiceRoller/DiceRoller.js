@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Card, ButtonGroup, Button, Form } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, ButtonGroup, Button, Form } from "react-bootstrap";
 import {GiDiceTwentyFacesTwenty,
         GiD12,
         GiD10,
@@ -31,7 +31,6 @@ const DiceRoller = () => {
 
     const getDice = (event) =>{
         var x = parseInt(event.currentTarget.value, 10);
-        console.log(x)
         setDice(x);
     }
     
@@ -65,6 +64,7 @@ const DiceRoller = () => {
 
                             return (
                                 <Button variant="dark"
+                                        key={'Button '+i}
                                         value = {numDice}
                                         onClick = {getDice}>
                                         {numDice}</Button>
@@ -78,11 +78,11 @@ const DiceRoller = () => {
                     <div key={`inline-radio`} className="mb-3 py-3">
                     {[...Array(6)].map((diceImg, i) => {
                         let numDice = i++;
-                        console.log(numDice);
 
                         return (
                             <Form.Check 
                         inline
+                        key = {'Dice'+i}
                         name = "group1"
                         type={'radio'}
                         id = {`D${dice[numDice]}`}
