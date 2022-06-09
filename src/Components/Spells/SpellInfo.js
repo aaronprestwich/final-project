@@ -30,7 +30,7 @@ const SpellInfo = ({spellInfo}) => {
                         <ListGroupItem className="bg-warning px-5">
                             Description: {spellInfo.desc}
                         </ListGroupItem>
-                        {spellInfo.higher_level == 0 ? null : <ListGroupItem className="bg-warning px-5">
+                        {spellInfo.higher_level === 0 ? null : <ListGroupItem className="bg-warning px-5">
                             Higher Level: {spellInfo.higher_level}
                         </ListGroupItem>}
                         <ListGroupItem className="bg-warning text-center px-5">

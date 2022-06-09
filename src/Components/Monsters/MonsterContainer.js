@@ -6,7 +6,6 @@ import {Container, Card, Button, Form} from "react-bootstrap";
 
 const MonsterContainer = () => {
 
-    let goblin = 'goblin';
     const monsterIDRef = useRef();
     const url = 'https://www.dnd5eapi.co/api';
     const [error, setError] = useState(null);

@@ -5,14 +5,14 @@ import {GiDeathSkull} from "react-icons/gi";
 const MonsterHP = ({monsterInfo, id, updateMonster}) => {
     const [HP, setHP] = useState();
     let isDead = false;
-
+    
     if(HP == 0){
         isDead = true;
         if(id){
-        updateMonster(isDead, id);
+        updateMonster(isDead, id, HP);
         }
     }
-        
+
     const getHP = (event) =>{
         var x = parseInt(event.currentTarget.value, 10);
         

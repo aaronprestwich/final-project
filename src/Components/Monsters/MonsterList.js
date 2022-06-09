@@ -49,11 +49,19 @@ export default function MonsterList({ monsterInfo }) {
     }
     // PUT 
     // Update Dead monster
-    const updateMonster = (isDead, id) => {
-        console.log(`Is the Monster Dead? ${isDead}`)
+    const updateMonster = (bool, id, HP) => {
+        console.log(`Is the Monster Dead? ${bool}`)
         var x = id;
         console.log('ID is here ' + x)
         const crudcrud = `${url}${endpointAPI}/monsters/${x}`;
+        let isDeadObj = {
+            isDead: bool,
+            hit_points: HP
+        }
+        monsterInfo = {
+            ...monsterInfo,
+            ...isDeadObj
+        }
 
         fetch(crudcrud, {
             method: 'PUT',
@@ -64,10 +72,11 @@ export default function MonsterList({ monsterInfo }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('SUCCESS', data, isDead);
+                console.log('SUCCESS', data);
 
             })
             .then(() => getMonster(endpointAPI));
+        console.log(monsterInfo);
         console.log('ENDPOINT MADE IT ' + endpointAPI);
 
     }
@@ -96,7 +105,7 @@ export default function MonsterList({ monsterInfo }) {
             <Button variant="warning" onClick={getENDPOINT}>Add Monster</Button>
             {error && <div> {error}</div>}
             {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster, i) => (
-                <><MonsterInfo id={monster._id} monsterInfo={monster.monsterInfo} updateMonster = {updateMonster}/>
+                <><MonsterInfo key={`${monster.monsterInfo.name}-${i}`} id={monster._id} monsterInfo={monster.monsterInfo} updateMonster = {updateMonster}/>
                     <Button variant="danger"
                      id={monster._id}
                       onClick={deleteMonster}>
