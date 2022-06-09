@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {Container, Row, DropdownButton, Dropdown} from "react-bootstrap";
 
+// Actions Dropdown button component
+// Props passed from MonsterInfo
 const MonsterActions = ({monsterInfo}) => {
     const [desc, setDesc] = useState();
 

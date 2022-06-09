@@ -1,26 +1,12 @@
 import React from "react";
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Container from "react-bootstrap/Container";
-import Nav from'react-bootstrap/Nav';
-import Navbar from "react-bootstrap/Navbar";
-
-import { FaDiceD20 } from 'react-icons/fa'
-
-
-import {
-  Switch,
-  Route,
-  Link,
-  useRouteMatch
-} from 'react-router-dom';
+import {Nav, Navbar, Container} from 'react-bootstrap';
+import { FaDiceD20 } from 'react-icons/fa';
+import { Switch, Route, Link } from 'react-router-dom';
 import MonsterContainer from "./Components/Monsters/MonsterContainer";
 import SpellContainer from "./Components/Spells/SpellContainer";
 import Tray from "./Components/DiceRoller/Tray"
-
-
 
 export default function App() {
   return (

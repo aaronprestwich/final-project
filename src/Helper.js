@@ -1,31 +1,32 @@
-const monsterIDRef = useRef();
-const url = 'https://www.dnd5eapi.co/api';
-export const [error, setError] = useState(null);
-export let [monsterInfo, setInfo] = useState('');
 
-export function getNewID(event) {
-        const id = `monsters/${monsterIDRef.current.value}`;
-        if (id === '') return
-        monsterIDRef.current.value = null;
-        getNewInfo(id.replace(/\s+/g, '-').toLowerCase());
-    }
+// const monsterIDRef = useRef();
+// const url = 'https://www.dnd5eapi.co/api';
+// export const [error, setError] = useState(null);
+// export let [monsterInfo, setInfo] = useState('');
 
-    // GET monster object
-    // getAPI(id);
-export function getNewInfo (id){
-        fetch(`${url}/${id}`)
-            .then(response => {
-                console.log(response);
-                if (!response.ok) {
-                    throw Error(`${id} was not found in the DND 5e API https://www.dnd5eapi.co/api/${id}.`);
-                }
-                return response.json()
-            })
-            .then(data => { setInfo(data); console.log(data); setError(null) })
-            .catch(err => {
-                setError(err.message);
-            })
-    }
+// export function getNewID(event) {
+//         const id = `monsters/${monsterIDRef.current.value}`;
+//         if (id === '') return
+//         monsterIDRef.current.value = null;
+//         getNewInfo(id.replace(/\s+/g, '-').toLowerCase());
+//     }
+
+//     // GET monster object
+//     // getAPI(id);
+// export function getNewInfo (id){
+//         fetch(`${url}/${id}`)
+//             .then(response => {
+//                 console.log(response);
+//                 if (!response.ok) {
+//                     throw Error(`${id} was not found in the DND 5e API https://www.dnd5eapi.co/api/${id}.`);
+//                 }
+//                 return response.json()
+//             })
+//             .then(data => { setInfo(data); console.log(data); setError(null) })
+//             .catch(err => {
+//                 setError(err.message);
+//             })
+//     }
 
 
 // // POST

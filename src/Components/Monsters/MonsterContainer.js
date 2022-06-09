@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import MonsterInfo from "./MonsterInfo";
 import MonsterList from "./MonsterList";
-import {Container, Card, Button, Form} from "react-bootstrap";
+import {Container, Button, Form} from "react-bootstrap";
 
 
 const MonsterContainer = () => {

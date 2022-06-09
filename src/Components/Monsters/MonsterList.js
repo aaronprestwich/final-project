@@ -105,12 +105,12 @@ export default function MonsterList({ monsterInfo }) {
             <Button variant="warning" onClick={getENDPOINT}>Add Monster</Button>
             {error && <div> {error}</div>}
             {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster, i) => (
-                <><MonsterInfo key={`${monster.monsterInfo.name}-${i}`} id={monster._id} monsterInfo={monster.monsterInfo} updateMonster = {updateMonster}/>
-                    <Button variant="danger"
-                     id={monster._id}
-                      onClick={deleteMonster}>
-                          {`Delete ${monster.monsterInfo.name} ${i+1}`}
-                    </Button>
+                <><MonsterInfo key={`${monster.monsterInfo.name}-${i}`}
+                    monsterBtnName = {`${monster.monsterInfo.name}-${i+1}`}
+                    id={monster._id}
+                    monsterInfo={monster.monsterInfo}
+                    updateMonster = {updateMonster}
+                    deleteMonster = {deleteMonster}/>
                 </>
 
             ))}

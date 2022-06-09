@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import {Container, Card, ListGroup, ListGroupItem, Row, Col, Accordion} from "react-bootstrap";
-import MonsterActions from './MonsterActions';
+import React from "react";
+import {Container, Card, ListGroup, ListGroupItem, Row, Col, Accordion, Button} from "react-bootstrap";
+import MonsterProficiencies from "./MonsterProficiencies";
 import MonsterAbilities from "./MonsterAbilities";
 import MonsterVulnerabilities from "./MonsterVulnerabilities";
-import MonsterHP from "./MonsterHP";
+import MonsterStatBlock from "./MonsterStatBlock";
 
-const MonsterInfo = ({monsterInfo, id, updateMonster}) => {
+const MonsterInfo = ({monsterInfo, id, updateMonster, deleteMonster, monsterBtnName}) => {
     return(
         <Container className="tray my-3">
         {monsterInfo && <Card className="bg-dark text-light p-2" border="warning">
@@ -16,31 +16,7 @@ const MonsterInfo = ({monsterInfo, id, updateMonster}) => {
                 <h2>{monsterInfo.name}</h2>
             </Card.Title>
             <Card.Body>
-                <Row className="pb-2">
-                    <Col>AC: {monsterInfo.armor_class}</Col>
-                    <MonsterHP monsterInfo={monsterInfo} id = {id} updateMonster={updateMonster} />
-                    {monsterInfo.speed.walk == null ? null : <Col>Walk: {monsterInfo.speed.walk}</Col>}
-                    {monsterInfo.speed.run == null ? null : <Col>Run: {monsterInfo.speed.run}</Col>}
-                    {monsterInfo.speed.fly == null ? null : <Col>Fly: {monsterInfo.speed.fly}</Col>}
-                    {monsterInfo.speed.swim == null ? null : <Col>Swim: {monsterInfo.speed.swim}</Col>} 
-                    {monsterInfo.speed.climb == null ? null : <Col>Climb: {monsterInfo.speed.climb}</Col>}                
-                </Row>
-                <Row className="text-center">
-                    <Col>Str</Col>
-                    <Col>Dex</Col>
-                    <Col>Con</Col>
-                    <Col>Int</Col>
-                    <Col>Wis</Col>
-                    <Col>Char</Col>
-                </Row>
-                <Row className="text-center pb-2">
-                    <Col>{monsterInfo.strength}</Col>
-                    <Col>{monsterInfo.dexterity}</Col>
-                    <Col>{monsterInfo.constitution}</Col>
-                    <Col>{monsterInfo.intelligence}</Col>
-                    <Col>{monsterInfo.wisdom}</Col>
-                    <Col>{monsterInfo.charisma}</Col>
-                </Row>
+                <MonsterStatBlock monsterInfo = {monsterInfo} updateMonster = {updateMonster} id= {id}/>
                 <ListGroup className="list-group-flush">
                     <ListGroupItem className="bg-warning px-5">
                         <Row>Passive Perception: {monsterInfo.senses.passive_perception}</Row>
@@ -48,27 +24,25 @@ const MonsterInfo = ({monsterInfo, id, updateMonster}) => {
                         <MonsterVulnerabilities monsterInfo= {monsterInfo}/>  
                         <Row>Languages: {monsterInfo.languages}</Row>
                     </ListGroupItem>
-                    <ListGroupItem className="bg-warning px-5">
-                        <Accordion className="accordion">
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>Proficiencies</Accordion.Header>
-                                <Accordion.Body>
-                                    <Row>{monsterInfo.proficiencies.map(x => <Col>{x.proficiency.name}</Col>)}</Row> 
-                                    <Row>{monsterInfo.proficiencies.map(x => <Col>{x.value}</Col>)}</Row> 
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
-                    </ListGroupItem>
-                    <ListGroupItem className="bg-warning px-5">
-                        <MonsterAbilities monsterInfo={monsterInfo}/>                                       
-                    </ListGroupItem>
-                    <ListGroupItem className="bg-warning px-5">
-                        <MonsterActions monsterInfo={monsterInfo}/>                                       
-                    </ListGroupItem>
+                    <MonsterProficiencies proficiencies={monsterInfo.proficiencies}/>
+                    <MonsterAbilities actions = {monsterInfo.special_abilities} title ={'Special Abilities'}/>      
+                    <MonsterAbilities actions = {monsterInfo.actions} title ={'Actions'}/>      
                 </ListGroup>
             </Card.Body>
             <Card.Footer className="bg-warning text-dark px-5">
-               Challenge {monsterInfo.challenge_rating} ({monsterInfo.xp} experience)
+                <Row>
+                    <Col>
+                    Challenge {monsterInfo.challenge_rating} ({monsterInfo.xp} experience)
+                    </Col>
+                    {monsterBtnName && <Col>
+                        <Button variant="danger"
+                            id = {id}
+                            onClick = {deleteMonster}>
+                            {`Delete ${monsterBtnName}`}
+                        </Button>
+                    </Col>}
+                </Row>
+               
             </Card.Footer>
         </Card>}
         </Container>
