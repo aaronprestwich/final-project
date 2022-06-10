@@ -2,6 +2,9 @@ import React, { useState, useRef } from "react";
 import MonsterInfo from "./MonsterInfo";
 import { Button, Form } from "react-bootstrap";
 
+// Contains CRUDCRUD functions
+// Gets props from MonsterContainer
+// Passes monsterBtnName, id, monsterInfo, updateMonster, deleteMonster to MonsterInfo
 export default function MonsterList({ monsterInfo }) {
 
     const crudcrudRef = useRef();
@@ -10,15 +13,15 @@ export default function MonsterList({ monsterInfo }) {
     const [error, setError] = useState(null);
     const [endpointAPI, setEndpointAPI] = useState('');
 
-
+    // Run by monster add button with CRUDCRUD endpoint entered
     const getENDPOINT = (event) => {
         const ENDPOINT = crudcrudRef.current.value;
         if (ENDPOINT === '') return
         console.log(ENDPOINT);
         setEndpointAPI(ENDPOINT)
         addMonster(ENDPOINT);
-
     }
+
     // POST
     const addMonster = (ENDPOINT) => {
         const crudcrud = `${url}${ENDPOINT}/monsters`;
@@ -31,6 +34,7 @@ export default function MonsterList({ monsterInfo }) {
         })
             .then(() => getMonster(ENDPOINT));
     }
+
     // GET
     const getMonster = (ENDPOINT) => {
         const crudcrud = `${url}${ENDPOINT}/monsters`;
@@ -43,12 +47,13 @@ export default function MonsterList({ monsterInfo }) {
                 return response.json()
             })
             .then(data => { setInfo(data); console.log(data); setError(null) })
+            // catch error and set error if Monster object doesn't exist
             .catch(err => {
                 setError(err.message);
             })
     }
     // PUT 
-    // Update Dead monster
+    // Update Dead monster it is used only in MonsterHP component
     const updateMonster = (bool, id, HP) => {
         console.log(`Is the Monster Dead? ${bool}`)
         var x = id;
@@ -58,6 +63,8 @@ export default function MonsterList({ monsterInfo }) {
             isDead: bool,
             hit_points: HP
         }
+        // Combine monster object with isDeadObj
+        // hit_points in monsterInfo will be updated to 0 
         monsterInfo = {
             ...monsterInfo,
             ...isDeadObj
@@ -76,7 +83,6 @@ export default function MonsterList({ monsterInfo }) {
 
             })
             .then(() => getMonster(endpointAPI));
-        console.log(monsterInfo);
         console.log('ENDPOINT MADE IT ' + endpointAPI);
 
     }
@@ -96,6 +102,7 @@ export default function MonsterList({ monsterInfo }) {
         })
             .then(() => getMonster(endpointAPI));
     }
+
     return (
         <div>
             <p>To add a monster you will need to get a <a href="https://crudcrud.com/">CRUD CRUD ENDPOINT</a> first.</p>
@@ -105,12 +112,13 @@ export default function MonsterList({ monsterInfo }) {
             <Button variant="warning" onClick={getENDPOINT}>Add Monster</Button>
             {error && <div> {error}</div>}
             {storedMonsterInfo.length > 0 && storedMonsterInfo?.map((monster, i) => (
+                // Passes alot of information including updateMonster and Delete button info
                 <><MonsterInfo key={`${monster.monsterInfo.name}-${i}`}
-                    monsterBtnName = {`${monster.monsterInfo.name}-${i+1}`}
+                    monsterBtnName={`${monster.monsterInfo.name}-${i + 1}`}
                     id={monster._id}
                     monsterInfo={monster.monsterInfo}
-                    updateMonster = {updateMonster}
-                    deleteMonster = {deleteMonster}/>
+                    updateMonster={updateMonster}
+                    deleteMonster={deleteMonster} />
                 </>
 
             ))}
